@@ -56,7 +56,7 @@ function displayResults(data) {
 	$(".results").html('');
 	data["items"].forEach(function(item){
 		newHTML += `<li class= "video">
-    						<a  target="_blank" href="https://www.youtube.com/watch?v=${item.id.videoID}">
+    						<a  target="_blank" href="https://www.youtube.com/watch?v=${item.id.videoId}">
     							<h2> ${item.snippet.title} </h2>
     							<img src="${item.snippet.thumbnails.default.url}" alt= "Video Image"/>
     						</a>
