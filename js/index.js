@@ -1,4 +1,4 @@
-let apiKey = "AIzaSyBPJBpEjbDF6RHbUOJTOWXewStlfgV68AI";
+let apiKey = "AIzaSyAYKZ1juzmCref1emyZqXaNqwvCq2zBHXs"; //had to take someone else's API key because I exceeded mine and won't let me create another one
 var searchTerm = "";
 var next = "";
 var prev = "";
