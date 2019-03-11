@@ -43,7 +43,7 @@ function buildFetchMore(page, callback){
 function watchForm(){
 	$(".Form").submit((event)=>{
 		event.preventDefault();
-		let searchTerm = $("#SearchBox").val();
+		searchTerm = $("#SearchBox").val();
 		buildFetch(searchTerm, displayResults);
 	});
 }
