@@ -1,4 +1,4 @@
-let apiKey = "AIzaSyBMuiP0cMmLEgT4-f2yHfJatdWxYmRHPB0"; //someone else's api key, mine stop working :(
+let apiKey = "AIzaSyBIV4zKkJyFz_4JhsGSqqj8-IXJRsvjIVg"; //someone else's api key, mine stop working :(
 var searchTerm = "";
 var next = "";
 var prev = "";
