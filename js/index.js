@@ -50,18 +50,22 @@ function watchForm(){
 
 
 function displayResults(data) {
-	let newHTML = "";
+	let newHTML = "<ul>";
 	console.log("entro dataresults");
 	console.log(data);
 	$(".results").html('');
 	data["items"].forEach(function(item){
-		newHTML += `<li class= "video">
-    						<a  target="_blank" href="https://www.youtube.com/watch?v=${item.id.videoId}">
-    							<h2> ${item.snippet.title} </h2>
-    							<img src="${item.snippet.thumbnails.default.url}" alt= "Video Image"/>
-    						</a>
-    					</li>`;
+		newHTML += `
+						<li class= "video">
+	    						<a  target="_blank" href="https://www.youtube.com/watch?v=${item.id.videoId}">
+	    							<h2> ${item.snippet.title} </h2>
+	    							<img src="${item.snippet.thumbnails.default.url}" alt= "Video Image"/>
+	    						</a>
+	    					</li>
+	    			`;
     });
+
+    newHTML += "</ul>";
 
     if(data.prevPageToken) {
     	newHTML += `<div>

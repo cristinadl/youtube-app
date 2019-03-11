@@ -2,3 +2,19 @@ header {
   text-align: center;
   font-size: 30px;
 }
+
+#prevBTN{
+	text-align: center;
+	position: center;
+	align-self: center;
+	border-radius: 10px;
+	font-size: 15px;
+}
+
+#nextBTN{
+	text-align: center;
+	position: center;
+	align-self: center;
+	border-radius: 10px;
+	font-size: 15px;
+}
