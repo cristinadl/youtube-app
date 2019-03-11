@@ -68,7 +68,7 @@ function displayResults(data) {
     newHTML += "</ul>";
 
     if(data.prevPageToken) {
-    	newHTML += `<div>
+    	newHTML += `<div class= "buttons">
     					<button class= "BTN" id= "prevBTN" type="button">
     						Previous
     					</button>
@@ -80,7 +80,7 @@ function displayResults(data) {
     	next = data.nextPageToken;
     }
     else{
-    	newHTML += `<div>
+    	newHTML += `<div class= "buttons">
     					<button class= "BTN" id= "nextBTN" type="button">
     						Next
     					</button>

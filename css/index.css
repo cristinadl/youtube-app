@@ -3,7 +3,12 @@ header {
   font-size: 30px;
 }
 
+.buttons{
+	text-align: center;
+}
+
 #prevBTN{
+	justify-content: center;
 	text-align: center;
 	position: center;
 	align-self: center;
@@ -12,6 +17,7 @@ header {
 }
 
 #nextBTN{
+	justify-content: center;
 	text-align: center;
 	position: center;
 	align-self: center;
