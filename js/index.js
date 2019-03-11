@@ -1,14 +1,20 @@
-var apiKey = "AIzaSyBPJBpEjbDF6RHbUOJTOWXewStlfgV68AI";
-var searchTerm;
+let apiKey = "AIzaSyBPJBpEjbDF6RHbUOJTOWXewStlfgV68AI";
+var searchTerm = "";
+var next = "";
+var prev = "";
 
-function builFetch(searchTerm, callback){
+function buildFetch(searchTerm, callback){
+	console.log("entro buildFetch");
 	$.ajax({
-		url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10";
+		url: "https://www.googleapis.com/youtube/v3/search",
 		method: "GET",
 		data: {
 			key: apiKey,
-			q: searchTerm
-		}
+			q: searchTerm,
+			maxResults: 10,
+			part: "snippet",
+			type: "video"
+		},
 		dataType: "json",
         success: responseJson => callback(responseJson),
         error : err => console.log(err)
@@ -16,43 +22,78 @@ function builFetch(searchTerm, callback){
 
 }
 
+function buildFetchMore(page, callback){
+	$.ajax({
+		url: "https://www.googleapis.com/youtube/v3/search",
+		method: "GET",
+		data: {
+			key: apiKey,
+			q: searchTerm,
+			maxResults: 10,
+			part: "snippet",
+			type: "video",
+			pageToken: page
+		},
+		dataType: "json",
+        success: responseJson => callback(responseJson),
+        error : err => console.log(err)
+	})
+}
+
 function watchForm(){
 	$(".Form").submit((event)=>{
 		event.preventDefault();
-		
-		let wordLookout = $("#SearchBox").val();
-
-		builFetch(wordLookout, displayResults);
+		let searchTerm = $("#SearchBox").val();
+		buildFetch(searchTerm, displayResults);
 	});
 }
 
 
 function displayResults(data) {
+	let newHTML = "";
+	console.log("entro dataresults");
+	console.log(data);
 	$(".results").html('');
-
-	var ingredient;
-	var qty;
-
-	data["drinks"].forEach(function(item){
-		let newHTML = `<li class= "drink">
-    						<h2> ${item.strDrink} </h2>
-    						<img src="${item.strDrinkThumb}" alt= "CocktailImage"/>
-    						<ol class>
-    						`;
-	    	for(i=1; i<15; i++)
-	    	{
-		    	ingredient = `strIngredient${i}`;
-		    	qty = `strMeasure${i}`;
-		    	if(item[ingredient] != "")
-		    		newHTML +=`<li> ${item[ingredient]} - ${item[qty]}</li>`;
-	    	}
-
-		    newHTML += `</ol>  
-		    			<h3> Instructions </h3>
-		    			<p> ${item.strInstructions} </p> </li>`;
-
-		    $('.results').append(newHTML);
+	data["items"].forEach(function(item){
+		newHTML += `<li class= "video">
+    						<a  target="_blank" href="https://www.youtube.com/watch?v=${item.id.videoID}">
+    							<h2> ${item.snippet.title} </h2>
+    							<img src="${item.snippet.thumbnails.default.url}" alt= "Video Image"/>
+    						</a>
+    					</li>`;
     });
+
+    if(data.prevPageToken) {
+    	newHTML += `<div>
+    					<button class= "BTN" id= "prevBTN" type="button">
+    						Previous
+    					</button>
+    					<button class= "BTN" id= "nextBTN" type="button">
+    						Next
+    					</button>
+    				</div>`
+    	prev = data.prevPageToken;
+    	next = data.nextPageToken;
+    }
+    else{
+    	newHTML += `<div>
+    					<button class= "BTN" id= "nextBTN" type="button">
+    						Next
+    					</button>
+    				</div>`
+    				next = data.nextPageToken;
+    }
+
+    $('.results').append(newHTML);
 }
+
+$('.results').on("click", "#nextBTN", function(event){
+	buildFetchMore(next, displayResults);
+})
+
+$('.results').on("click", "#prevBTN", function(event){
+	buildFetchMore(prev, displayResults);
+})
+
 
 $(watchForm);
